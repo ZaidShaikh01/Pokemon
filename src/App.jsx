@@ -1,109 +1,70 @@
-import pokemon from './assets/pickachu.png';
+import { Routes, Route } from 'react-router';
+
+import { useState, useEffect } from 'react';
+import HomePage from './pages/home';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const App = () => {
+  // I want to get list of pokemon right, My thinking is to create create a list and get that
+  const [pokemons, setPokemons] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  // Now I'll start fetching the data
+
+  // My Idea is to take an array and just start fetching the pokemons one after another.
+
+  useEffect(() => {
+    // Here I will run a try catch to get pokemon
+    const fetchPokemons = async () => {
+      try {
+        // it stores the promises and not pokemon
+        const requests = [];
+        const pokemonCount = 200;
+
+        for (let i = 1; i < pokemonCount; i++) {
+          // This array will store Promises, not Pokémon.
+          requests.push(
+            fetch(`${API_URL}${i}`).then((res) => {
+              if (!res.ok) throw new Error('Error while fetching the data');
+              return res.json();
+            }),
+          );
+        }
+        // Each iteration immediately starts a fetch request and stores its Promise.
+
+        // After the loop, requests looks conceptually like:
+
+        // [
+        //   Promise,
+        //   Promise,
+        //   Promise,
+        //   ...
+        // ]
+
+        // This waits until every Promise has finished.
+        const pokemonDetails = await Promise.all(requests);
+        setPokemons(pokemonDetails);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPokemons();
+  }, []);
+
   return (
-    <div className='pokemon-card-grid'>
-      <div className='pokemon-card'>
-        <h3 className='pokemon-name'>Pickachwu</h3>
-        <img
-          src={pokemon}
-          alt='pokemon-img'
-          className='pokemon-image'
-          width={300}
+    <>
+      <Routes>
+        <Route
+          path='/'
+          element={
+            <HomePage error={error} loading={loading} pokemons={pokemons} />
+          }
         />
-        <div className='pokemon-details'>
-          <p>ID: #25</p>
-          <p>Type: Electric</p>
-          <p>Height: 0.4 m</p>
-          <p>Weight: 6.0 Kg</p>
-          <p>Ability: Static</p>
-        </div>
-        <div className='ctrl-btn'>
-          <button className='btn'>Previous</button>
-          <button className='btn'>Next</button>
-        </div>
-      </div>
-      <div className='pokemon-card'>
-        <h3 className='pokemon-name'>Pickachwu</h3>
-        <img
-          src={pokemon}
-          alt='pokemon-img'
-          className='pokemon-image'
-          width={300}
-        />
-        <div className='pokemon-details'>
-          <p>ID: #25</p>
-          <p>Type: Electric</p>
-          <p>Height: 0.4 m</p>
-          <p>Weight: 6.0 Kg</p>
-          <p>Ability: Static</p>
-        </div>
-        <div className='ctrl-btn'>
-          <button className='btn'>Previous</button>
-          <button className='btn'>Next</button>
-        </div>
-      </div>
-      <div className='pokemon-card'>
-        <h3 className='pokemon-name'>Pickachwu</h3>
-        <img
-          src={pokemon}
-          alt='pokemon-img'
-          className='pokemon-image'
-          width={300}
-        />
-        <div className='pokemon-details'>
-          <p>ID: #25</p>
-          <p>Type: Electric</p>
-          <p>Height: 0.4 m</p>
-          <p>Weight: 6.0 Kg</p>
-          <p>Ability: Static</p>
-        </div>
-        <div className='ctrl-btn'>
-          <button className='btn'>Previous</button>
-          <button className='btn'>Next</button>
-        </div>
-      </div>
-      <div className='pokemon-card'>
-        <h3 className='pokemon-name'>Pickachwu</h3>
-        <img
-          src={pokemon}
-          alt='pokemon-img'
-          className='pokemon-image'
-          width={300}
-        />
-        <div className='pokemon-details'>
-          <p>ID: #25</p>
-          <p>Type: Electric</p>
-          <p>Height: 0.4 m</p>
-          <p>Weight: 6.0 Kg</p>
-          <p>Ability: Static</p>
-        </div>
-        <div className='ctrl-btn'>
-          <button className='btn'>Previous</button>
-          <button className='btn'>Next</button>
-        </div>
-      </div>
-      <div className='pokemon-card'>
-        <h3 className='pokemon-name'>Pickachwu</h3>
-        <img
-          src={pokemon}
-          alt='pokemon-img'
-          className='pokemon-image'
-          width={300}
-        />
-        <div className='pokemon-details'>
-          <p>ID: #25</p>
-          <p>Type: Electric</p>
-          <p>Height: 0.4 m</p>
-          <p>Weight: 6.0 Kg</p>
-          <p>Ability: Static</p>
-        </div>
-        <div className='ctrl-btn'>
-          <button className='btn'>Previous</button>
-          <button className='btn'>Next</button>
-        </div>
-      </div>
-    </div>
+      </Routes>
+    </>
   );
 };
 
