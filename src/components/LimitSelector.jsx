@@ -1,7 +1,7 @@
 const LimitSelctor = ({ limit, setLimit }) => {
   return (
     <div className='controls'>
-      <label for='limit'>Show: </label>
+      <label htmlFor='limit'>Show: </label>
       <select
         id='limit'
         value={limit}

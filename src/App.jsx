@@ -12,6 +12,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('');
   const [limit, setLimit] = useState(10);
+  const [sortBy, setSortBy] = useState('All');
   // Now I'll start fetching the data
 
   // My Idea is to take an array and just start fetching the pokemons one after another.
@@ -69,6 +70,8 @@ const App = () => {
               setFilter={setFilter}
               limit={limit}
               setLimit={setLimit}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
             />
           }
         />

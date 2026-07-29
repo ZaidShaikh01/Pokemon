@@ -15,10 +15,6 @@ const PokemonCard = ({ pokemon }) => {
         <p>Ability: {pokemon.abilities[0].ability.name}</p>
         <p>Base Experience: {pokemon.base_experience}</p>
       </div>
-      <div className='ctrl-btn'>
-        <button className='btn'>Previous</button>
-        <button className='btn'>Next</button>
-      </div>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import pokemonImg from '../assets/pickachu.png';
 import PokemonCard from '../components/PokemonCard';
 import InputFilter from '../components/FilterInput';
 import LimitSelctor from '../components/LimitSelector';
+import SortSelector from '../components/SortSelector';
 
 const HomePage = ({
   pokemons,
@@ -11,11 +12,25 @@ const HomePage = ({
   setFilter,
   limit,
   setLimit,
+  sortBy,
+  setSortBy,
 }) => {
-  //Creating a new Filtered list
-  const filterList = pokemons.filter((pokemon) =>
-    pokemon.name.toLowerCase().includes(filter.toLowerCase()),
-  );
+  //Creating a new Filtered list with name matching the input && sort by button
+  const filterList = pokemons.filter((pokemon) => {
+    if (
+      pokemon.name.toLowerCase().includes(filter.toLowerCase()) &&
+      sortBy.toLowerCase() === 'all'
+    ) {
+      return pokemon;
+    } else {
+      return (
+        pokemon.name.toLowerCase().includes(filter.toLowerCase()) &&
+        pokemon.types[0].type.name.toLowerCase().includes(sortBy.toLowerCase())
+      );
+    }
+  });
+
+  
 
   return (
     // Add statments for if not loading and loading
@@ -24,6 +39,7 @@ const HomePage = ({
       <div className='top-controls'>
         <InputFilter filter={filter} onFilterChange={setFilter} />
         <LimitSelctor limit={limit} setLimit={setLimit} />
+        <SortSelector setSortBy={setSortBy} sortBy={sortBy} />
       </div>
       {loading && <p>Loading....</p>}
       {error && <p>{error}</p>}
