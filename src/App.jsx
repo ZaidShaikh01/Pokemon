@@ -10,6 +10,8 @@ const App = () => {
   const [pokemons, setPokemons] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState('');
+  const [limit, setLimit] = useState(10);
   // Now I'll start fetching the data
 
   // My Idea is to take an array and just start fetching the pokemons one after another.
@@ -20,9 +22,8 @@ const App = () => {
       try {
         // it stores the promises and not pokemon
         const requests = [];
-        const pokemonCount = 200;
 
-        for (let i = 1; i < pokemonCount; i++) {
+        for (let i = 1; i <= limit; i++) {
           // This array will store Promises, not Pokémon.
           requests.push(
             fetch(`${API_URL}${i}`).then((res) => {
@@ -31,7 +32,7 @@ const App = () => {
             }),
           );
         }
-        // Each iteration immediately starts a fetch request and stores its Promise.
+        // Each iteration immediately starts a fetch request and stJores its Promise.
 
         // After the loop, requests looks conceptually like:
 
@@ -52,7 +53,7 @@ const App = () => {
       }
     };
     fetchPokemons();
-  }, []);
+  }, [limit]);
 
   return (
     <>
@@ -60,7 +61,15 @@ const App = () => {
         <Route
           path='/'
           element={
-            <HomePage error={error} loading={loading} pokemons={pokemons} />
+            <HomePage
+              error={error}
+              loading={loading}
+              pokemons={pokemons}
+              filter={filter}
+              setFilter={setFilter}
+              limit={limit}
+              setLimit={setLimit}
+            />
           }
         />
       </Routes>
