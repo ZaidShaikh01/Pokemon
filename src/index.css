@@ -54,6 +54,22 @@ a {
 .filter input:focus {
   outline: none;
 }
+.top-nav {
+  display: flex;
+  gap: 2rem;
+  justify-content: end;
+  color: blue;
+}
+.top-nav a {
+  color: #58a6ff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s ease;
+}
+
+.top-nav a:hover {
+  color: #4090db;
+}
 /* Controls button */
 .controls {
   margin-bottom: 2rem;
@@ -72,20 +88,7 @@ a {
   color: white;
   border: none;
 }
-.btn {
-  cursor: pointer;
-  border: 1px solid grey;
-  width: 100px;
-  color: white;
-  border-radius: 5px;
-  padding: 0.5rem;
-  background-color: #1c1f26;
-  margin: 0.5rem;
-  transition: transform 0.2s ease;
-}
-.btn:hover {
-  opacity: 0.8;
-}
+
 .pokemon-card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -111,4 +114,36 @@ a {
   width: 100px;
   height: 100px;
   border-radius: 5px;
+}
+
+.about-details-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pokemon-details-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2rem;
+  gap: 1rem;
+  width: 512px;
+  background-color: #161b22;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+.pokemon-details-card:hover {
+  transform: translateY(-5px);
+}
+.pokemon-details-card a {
+  color: #58a6ff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s ease;
+}
+.pokemon-details-card a:hover {
+  color: #4090db;
 }

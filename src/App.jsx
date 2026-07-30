@@ -1,7 +1,9 @@
-import { Routes, Route } from 'react-router';
-
+import { Routes, Route, Link } from 'react-router';
+import Header from './components/Header';
 import { useState, useEffect } from 'react';
 import HomePage from './pages/home';
+import AboutPage from './pages/about';
+import AboutDetails from './pages/about-details';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -58,6 +60,7 @@ const App = () => {
 
   return (
     <>
+      <Header />
       <Routes>
         <Route
           path='/'
@@ -75,6 +78,9 @@ const App = () => {
             />
           }
         />
+        <Route path='/about' element={<AboutPage />} />
+        <Route path='/pokemon/:id' element={<AboutDetails />} />
+        {/* <Route path='*' element={<AboutPage />} /> */}
       </Routes>
     </>
   );
