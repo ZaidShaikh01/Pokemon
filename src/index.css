@@ -9,6 +9,32 @@ body {
   color: white;
   line-height: 1.6;
   padding: 2rem;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+body.light {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: antiquewhite;
+  color: black;
+  line-height: 1.6;
+  padding: 2rem;
+
+  h1 {
+    color: black;
+  }
+  a {
+    color: black;
+  }
+  .toggle-button {
+    color: black;
+  }
+  .filter input,
+  .controls select,
+  .pokemon-card {
+    background-color: white;
+    color: #0e1117;
+  }
 }
 img {
   max-width: 100%;
@@ -21,6 +47,9 @@ a {
   color: #fff;
   text-decoration: none;
 }
+ul li {
+  list-style: none;
+}
 /* Top Controls */
 .top-controls {
   display: flex;
@@ -29,6 +58,18 @@ a {
   margin-bottom: 2rem;
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+.toggle-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  cursor: pointer;
+  background-color: transparent;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
 }
 
 .top-controls .filter {
@@ -146,4 +187,48 @@ a {
 }
 .pokemon-details-card a:hover {
   color: #4090db;
+}
+
+.description {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+.features {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+.tech-stack {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+.api {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+.api a {
+  color: blue;
+
+  font-weight: bold;
+}
+.learning {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+.about-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 3rem;
+}
+.about-page h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+.footer {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
 }

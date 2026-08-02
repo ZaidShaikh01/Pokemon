@@ -9,6 +9,9 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const App = () => {
   // I want to get list of pokemon right, My thinking is to create create a list and get that
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('theme') === 'dark';
+  });
   const [pokemons, setPokemons] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -19,6 +22,19 @@ const App = () => {
 
   // My Idea is to take an array and just start fetching the pokemons one after another.
 
+  useEffect(() => {
+    const toggleTheme = () => {
+      if (!darkMode) {
+        document.body.classList.add('light');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.body.classList.remove('light');
+        localStorage.setItem('theme', 'dark');
+      }
+    };
+    toggleTheme();
+  }, [darkMode]);
+  
   useEffect(() => {
     // Here I will run a try catch to get pokemon
     const fetchPokemons = async () => {
@@ -60,7 +76,12 @@ const App = () => {
 
   return (
     <>
-      <Header />
+      <Header
+        Onchange={() => {
+          setDarkMode(!darkMode);
+        }}
+        isDarkMode={darkMode}
+      />
       <Routes>
         <Route
           path='/'
@@ -80,7 +101,6 @@ const App = () => {
         />
         <Route path='/about' element={<AboutPage />} />
         <Route path='/pokemon/:id' element={<AboutDetails />} />
-        {/* <Route path='*' element={<AboutPage />} /> */}
       </Routes>
     </>
   );
